@@ -84,6 +84,7 @@ class AppContainer(context: Context) {
     val observeUserProfileUseCase = com.novaclean.app.domain.usecase.ObserveUserProfileUseCase(profileRepository)
     val setNotificationsEnabledUseCase = com.novaclean.app.domain.usecase.SetNotificationsEnabledUseCase(profileRepository)
     val addCleanedBytesUseCase = com.novaclean.app.domain.usecase.AddCleanedBytesUseCase(profileRepository)
+    val registerProfileUseCase = com.novaclean.app.domain.usecase.RegisterProfileUseCase(profileRepository)
 
     val passwordGeneratorUseCase = com.novaclean.app.domain.usecase.PasswordGeneratorUseCase()
 
@@ -102,4 +103,11 @@ class AppContainer(context: Context) {
     val vaultRepository: com.novaclean.app.domain.repository.VaultRepository =
         com.novaclean.app.data.repository.VaultRepositoryImpl(context)
     val vaultUseCases = com.novaclean.app.domain.usecase.VaultUseCases(vaultRepository)
+
+    // Password Manager
+    val passwordManagerRepository: com.novaclean.app.domain.repository.PasswordManagerRepository =
+        com.novaclean.app.data.repository.PasswordManagerRepositoryImpl(context)
+    val getSavedPasswordsUseCase = com.novaclean.app.domain.usecase.GetSavedPasswordsUseCase(passwordManagerRepository)
+    val savePasswordUseCase = com.novaclean.app.domain.usecase.SavePasswordUseCase(passwordManagerRepository)
+    val deletePasswordUseCase = com.novaclean.app.domain.usecase.DeletePasswordUseCase(passwordManagerRepository)
 }

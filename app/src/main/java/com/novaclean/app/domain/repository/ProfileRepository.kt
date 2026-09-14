@@ -7,4 +7,5 @@ interface ProfileRepository {
     val userProfile: StateFlow<UserProfile>
     fun setNotificationsEnabled(enabled: Boolean)
     fun addCleanedBytes(bytes: Long)
+    fun registerOrUpdateProfile(displayName: String, email: String)
 }

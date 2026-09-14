@@ -19,3 +19,9 @@ class AddCleanedBytesUseCase(private val repository: ProfileRepository) {
         repository.addCleanedBytes(bytes)
     }
 }
+
+class RegisterProfileUseCase(private val repository: ProfileRepository) {
+    operator fun invoke(displayName: String, email: String) {
+        repository.registerOrUpdateProfile(displayName, email)
+    }
+}

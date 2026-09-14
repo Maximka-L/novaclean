@@ -36,17 +36,36 @@ class ProfileRepositoryImpl(
     private fun loadProfile(): UserProfile {
         val totalCleaned = prefs.getLong("total_cleaned_bytes", 4_600_000_000L) // дефолтные 4.6 ГБ
         val notifications = prefs.getBoolean("notifications_enabled", true)
+        val displayName = prefs.getString("display_name", "Пользователь NovaClean") ?: "Пользователь NovaClean"
+        val email = prefs.getString("user_email", null)
+        val isRegistered = prefs.getBoolean("is_registered", false)
         val userId = prefs.getString("user_id", null) ?: run {
             val generated = (100000..999999).random().toString()
             prefs.edit().putString("user_id", generated).apply()
             generated
         }
         return UserProfile(
-            displayName = "Пользователь NovaClean",
+            displayName = displayName,
+            email = email,
             userId = userId,
             isPro = billingRepository.isProUser.value,
+            isRegistered = isRegistered,
             totalCleanedBytes = totalCleaned,
             notificationsEnabled = notifications
+        )
+    }
+
+    override fun registerOrUpdateProfile(displayName: String, email: String) {
+        prefs.edit()
+            .putString("display_name", displayName)
+            .putString("user_email", email)
+            .putBoolean("is_registered", true)
+            .apply()
+
+        _userProfile.value = _userProfile.value.copy(
+            displayName = displayName,
+            email = email,
+            isRegistered = true
         )
     }
 

@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import android.widget.Toast
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -32,11 +33,13 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.RadioButtonUnchecked
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Security
+import androidx.compose.material.icons.filled.VpnKey
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
@@ -49,7 +52,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,6 +67,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.novaclean.app.R
+import com.novaclean.app.domain.model.PasswordCategory
 import com.novaclean.app.domain.model.PasswordStrengthLevel
 import com.novaclean.app.presentation.components.GradientButton
 import com.novaclean.app.presentation.theme.DangerRed
@@ -75,10 +81,13 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun PasswordGeneratorScreen(
     viewModel: PasswordGeneratorViewModel,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    onSavePassword: ((service: String, login: String, pass: String, category: PasswordCategory, notes: String?) -> Unit)? = null,
+    onNavigateToManager: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
+    var showSaveDialog by remember { mutableStateOf(false) }
 
     val password by viewModel.password.collectAsState()
     val options by viewModel.options.collectAsState()
@@ -124,6 +133,11 @@ fun PasswordGeneratorScreen(
                     }
                 },
                 actions = {
+                    if (onNavigateToManager != null) {
+                        IconButton(onClick = onNavigateToManager) {
+                            Icon(Icons.Default.VpnKey, contentDescription = stringResource(R.string.passwords_screen_title), tint = NeonCyan)
+                        }
+                    }
                     IconButton(onClick = { viewModel.generateNewPassword() }) {
                         Icon(Icons.Default.Refresh, contentDescription = stringResource(R.string.password_gen_regenerate))
                     }
@@ -135,7 +149,7 @@ fun PasswordGeneratorScreen(
             )
         },
         bottomBar = {
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.surface)
@@ -146,6 +160,18 @@ fun PasswordGeneratorScreen(
                     icon = Icons.Default.ContentCopy,
                     onClick = { copyToClipboard() }
                 )
+                if (onSavePassword != null) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    OutlinedButton(
+                        onClick = { showSaveDialog = true },
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Icon(Icons.Default.VpnKey, contentDescription = null, tint = NeonCyan, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.passwords_save_from_generator), color = MaterialTheme.colorScheme.onSurface)
+                    }
+                }
             }
         },
         containerColor = MaterialTheme.colorScheme.background
@@ -361,6 +387,18 @@ fun PasswordGeneratorScreen(
             )
 
             Spacer(modifier = Modifier.height(30.dp))
+        }
+
+        if (showSaveDialog && onSavePassword != null) {
+            AddPasswordDialog(
+                prefilledPassword = password,
+                onDismiss = { showSaveDialog = false },
+                onSave = { service, login, pass, cat, notes ->
+                    onSavePassword(service, login, pass, cat, notes)
+                    showSaveDialog = false
+                    Toast.makeText(context, context.getString(R.string.passwords_saved_toast), Toast.LENGTH_SHORT).show()
+                }
+            )
         }
     }
 }

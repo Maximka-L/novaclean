@@ -2,6 +2,7 @@ package com.novaclean.app.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,6 +19,7 @@ import com.novaclean.app.presentation.viewmodel.DashboardViewModel
 import com.novaclean.app.presentation.viewmodel.JunkCleanerViewModel
 import com.novaclean.app.presentation.viewmodel.PaywallViewModel
 import com.novaclean.app.presentation.viewmodel.PhotoDuplicatesViewModel
+import kotlinx.coroutines.launch
 
 object Routes {
     const val DASHBOARD = "dashboard"
@@ -31,6 +33,7 @@ object Routes {
     const val COMPRESSOR = "compressor"
     const val LARGE_FILES = "large_files"
     const val VAULT = "vault"
+    const val PASSWORD_MANAGER = "password_manager"
 }
 
 @Composable
@@ -68,14 +71,16 @@ fun NovaCleanNavGraph(
             val viewModel = remember {
                 com.novaclean.app.presentation.viewmodel.ProfileViewModel(
                     observeUserProfileUseCase = container.observeUserProfileUseCase,
-                    setNotificationsEnabledUseCase = container.setNotificationsEnabledUseCase
+                    setNotificationsEnabledUseCase = container.setNotificationsEnabledUseCase,
+                    registerProfileUseCase = container.registerProfileUseCase
                 )
             }
             com.novaclean.app.presentation.screens.ProfileScreen(
                 viewModel = viewModel,
                 onBack = { navController.popBackStack() },
                 onNavigateToPaywall = { navController.navigate(Routes.PAYWALL) },
-                onNavigateToPasswordGen = { navController.navigate(Routes.PASSWORD_GEN) }
+                onNavigateToPasswordGen = { navController.navigate(Routes.PASSWORD_GEN) },
+                onNavigateToPasswordManager = { navController.navigate(Routes.PASSWORD_MANAGER) }
             )
         }
 
@@ -85,9 +90,24 @@ fun NovaCleanNavGraph(
                     generatorUseCase = container.passwordGeneratorUseCase
                 )
             }
+            val scope = rememberCoroutineScope()
             com.novaclean.app.presentation.screens.PasswordGeneratorScreen(
                 viewModel = viewModel,
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
+                onSavePassword = { service, login, pass, cat, notes ->
+                    scope.launch {
+                        val item = com.novaclean.app.domain.model.SavedPassword(
+                            id = java.util.UUID.randomUUID().toString(),
+                            serviceName = service,
+                            login = login,
+                            password = pass,
+                            category = cat,
+                            notes = notes
+                        )
+                        container.savePasswordUseCase.execute(item)
+                    }
+                },
+                onNavigateToManager = { navController.navigate(Routes.PASSWORD_MANAGER) }
             )
         }
 
@@ -203,6 +223,20 @@ fun NovaCleanNavGraph(
                 viewModel = viewModel,
                 onBack = { navController.popBackStack() },
                 onNavigatePaywall = { navController.navigate(Routes.PAYWALL) }
+            )
+        }
+
+        composable(Routes.PASSWORD_MANAGER) {
+            val viewModel = remember {
+                com.novaclean.app.presentation.viewmodel.PasswordManagerViewModel(
+                    getSavedPasswordsUseCase = container.getSavedPasswordsUseCase,
+                    savePasswordUseCase = container.savePasswordUseCase,
+                    deletePasswordUseCase = container.deletePasswordUseCase
+                )
+            }
+            com.novaclean.app.presentation.screens.PasswordManagerScreen(
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() }
             )
         }
     }

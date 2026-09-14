@@ -22,24 +22,33 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
 import androidx.compose.material.icons.filled.CleaningServices
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Policy
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.VpnKey
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -66,9 +75,11 @@ fun ProfileScreen(
     viewModel: ProfileViewModel,
     onBack: () -> Unit,
     onNavigateToPaywall: () -> Unit,
-    onNavigateToPasswordGen: () -> Unit
+    onNavigateToPasswordGen: () -> Unit,
+    onNavigateToPasswordManager: () -> Unit
 ) {
     val profile by viewModel.userProfile.collectAsState()
+    var showEditProfileDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -119,10 +130,10 @@ fun ProfileScreen(
                         )
                     }
                     Spacer(modifier = Modifier.width(16.dp))
-                    Column {
+                    Column(modifier = Modifier.weight(1f)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                text = stringResource(R.string.profile_user_default_name),
+                                text = profile.displayName,
                                 fontSize = 17.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onBackground
@@ -134,9 +145,22 @@ fun ProfileScreen(
                         }
                         Spacer(modifier = Modifier.height(3.dp))
                         Text(
-                            text = stringResource(R.string.profile_user_id_label, profile.userId),
+                            text = profile.email ?: stringResource(R.string.profile_unregistered_status),
                             fontSize = 12.sp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = if (profile.isRegistered) MintGreen else MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            text = stringResource(R.string.profile_user_id_label, profile.userId),
+                            fontSize = 11.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                        )
+                    }
+
+                    IconButton(onClick = { showEditProfileDialog = true }) {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = stringResource(R.string.profile_action_edit),
+                            tint = ElectricBlue
                         )
                     }
                 }
@@ -262,6 +286,16 @@ fun ProfileScreen(
                 onClick = onNavigateToPasswordGen
             )
 
+            Spacer(modifier = Modifier.height(10.dp))
+
+            SettingsActionRow(
+                title = stringResource(R.string.profile_password_manager_title),
+                subtitle = stringResource(R.string.profile_password_manager_desc),
+                icon = Icons.Default.VpnKey,
+                iconColor = ElectricBlue,
+                onClick = onNavigateToPasswordManager
+            )
+
             Spacer(modifier = Modifier.height(24.dp))
 
             // Settings & Support Section
@@ -342,6 +376,18 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
         }
+
+        if (showEditProfileDialog) {
+            EditProfileDialog(
+                initialName = profile.displayName,
+                initialEmail = profile.email ?: "",
+                onDismiss = { showEditProfileDialog = false },
+                onSave = { name, email ->
+                    viewModel.registerOrUpdate(name, email)
+                    showEditProfileDialog = false
+                }
+            )
+        }
     }
 }
 
@@ -402,3 +448,54 @@ fun SettingsActionRow(
         )
     }
 }
+
+@Composable
+private fun EditProfileDialog(
+    initialName: String,
+    initialEmail: String,
+    onDismiss: () -> Unit,
+    onSave: (name: String, email: String) -> Unit
+) {
+    var name by remember { mutableStateOf(initialName) }
+    var email by remember { mutableStateOf(initialEmail) }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.profile_edit_dialog_title)) },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                OutlinedTextField(
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text(stringResource(R.string.profile_input_name)) },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text(stringResource(R.string.profile_input_email)) },
+                    singleLine = true,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    if (name.isNotBlank()) {
+                        onSave(name.trim(), email.trim())
+                    }
+                }
+            ) {
+                Text(stringResource(R.string.vault_dialog_save))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(R.string.vault_dialog_cancel))
+            }
+        }
+    )
+}
+

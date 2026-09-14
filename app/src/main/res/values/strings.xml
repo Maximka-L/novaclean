@@ -262,4 +262,39 @@
     <string name="notif_storage_low_desc">Свободно менее 15% места. Нажмите, чтобы очистить кэш и дубликаты.</string>
     <string name="notif_periodic_title">Время навести порядок в NovaClean</string>
     <string name="notif_periodic_desc">В памяти обнаружены временные файлы. Очистите мусор в 1 клик.</string>
+
+    <!-- Регистрация и редактирование профиля -->
+    <string name="profile_edit_dialog_title">Учетная запись</string>
+    <string name="profile_input_name">Ваше имя</string>
+    <string name="profile_input_email">Электронная почта (Email)</string>
+    <string name="profile_registered_status">Учетная запись подтверждена</string>
+    <string name="profile_unregistered_status">Локальный профиль не настроен</string>
+    <string name="profile_action_edit">Редактировать</string>
+    <string name="profile_action_register">Создать профиль</string>
+    <string name="profile_saved_toast">Данные профиля успешно обновлены!</string>
+    <string name="profile_password_manager_title">Менеджер паролей</string>
+    <string name="profile_password_manager_desc">Зашифрованное хранилище аккаунтов и логинов</string>
+
+    <!-- Менеджер Паролей (Password Manager) -->
+    <string name="passwords_screen_title">Менеджер Паролей</string>
+    <string name="passwords_search_hint">Поиск по сервису или логину...</string>
+    <string name="passwords_empty_title">Нет сохраненных паролей</string>
+    <string name="passwords_empty_desc">Сохраняйте пароли прямо из Генератора или добавляйте новые вручную</string>
+    <string name="passwords_add_action">Добавить пароль</string>
+    <string name="passwords_save_from_generator">Сохранить в менеджер паролей</string>
+    <string name="passwords_dialog_title">Новый пароль</string>
+    <string name="passwords_service_label">Сервис (напр. Google, Telegram)</string>
+    <string name="passwords_login_label">Логин / Email / Телефон</string>
+    <string name="passwords_password_label">Пароль</string>
+    <string name="passwords_category_label">Категория</string>
+    <string name="passwords_notes_label">Заметка (необязательно)</string>
+    <string name="passwords_cat_all">Все</string>
+    <string name="passwords_cat_social">Соцсети</string>
+    <string name="passwords_cat_mail">Почта</string>
+    <string name="passwords_cat_finance">Банки</string>
+    <string name="passwords_cat_work">Работа</string>
+    <string name="passwords_cat_other">Другое</string>
+    <string name="passwords_saved_toast">Пароль надежно сохранен в сейф!</string>
+    <string name="passwords_deleted_toast">Запись удалена</string>
+    <string name="passwords_copied_toast">Скопировано: %1$s</string>
 </resources>
