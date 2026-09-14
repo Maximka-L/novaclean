@@ -1,0 +1,178 @@
+<resources>
+    <!-- Основные названия -->
+    <string name="app_name">NovaClean</string>
+    <string name="app_name_nova">Nova</string>
+    <string name="app_name_clean">Clean</string>
+    <string name="app_tagline">Оптимизация и чистота памяти</string>
+    <string name="badge_pro">PRO</string>
+
+    <!-- Общие действия -->
+    <string name="action_back">Назад</string>
+    <string name="action_refresh">Обновить</string>
+    <string name="action_close">Закрыть</string>
+    <string name="action_open">Открыть</string>
+    <string name="action_delete_selected">Удалить выбранные (%1$s)</string>
+    <string name="action_clean_junk">Очистить мусор (%1$s)</string>
+    <string name="action_merge_all_duplicates">Объединить все дубликаты</string>
+    <string name="action_accelerate_ram">Ускорить память (ОЗУ)</string>
+    <string name="action_optimizing">Оптимизация...</string>
+
+    <!-- Главный экран (Dashboard) -->
+    <string name="dashboard_ram_title">ОЗУ Занято</string>
+    <string name="dashboard_ram_subtitle">%1$s из %2$s</string>
+    <string name="dashboard_ram_freed_toast">Освобождено памяти: %1$s! Телефон ускорен.</string>
+    <string name="dashboard_pro_banner_title">NovaClean PRO</string>
+    <string name="dashboard_pro_banner_desc">Глубокая очистка без ограничений и 100% без рекламы</string>
+    <string name="dashboard_modules_title">Модули очистки</string>
+
+    <!-- Категории на главном экране -->
+    <string name="category_photos_title">Дубликаты фото</string>
+    <string name="category_photos_desc">Одинаковые снимки и серии кадров</string>
+    <string name="category_audio_title">Дубликаты аудио и музыки</string>
+    <string name="category_audio_desc">Повторяющиеся песни и треки</string>
+    <string name="category_contacts_title">Дубликаты контактов</string>
+    <string name="category_contacts_desc">Объединение одинаковых номеров и имен</string>
+    <string name="category_junk_title">Мусор и битые файлы</string>
+    <string name="category_junk_desc">0-байтовые файлы, старые APK и кэш</string>
+
+    <!-- Дубликаты фото -->
+    <string name="photos_screen_title">Дубликаты фото</string>
+    <string name="photos_tab_exact">Точные копии (%1$d)</string>
+    <string name="photos_tab_similar">Похожие серии</string>
+    <string name="photos_scanning_progress">Поиск одинаковых фото...</string>
+    <string name="photos_checking_progress">Проверено %1$d из %2$d...</string>
+    <string name="photos_empty_title">Дубликатов не найдено!</string>
+    <string name="photos_empty_desc">Все ваши фотографии уникальны</string>
+    <string name="photos_selected_count">Выбрано: %1$d фото</string>
+    <string name="photos_group_copies_count">Копий: %1$d</string>
+    <string name="photos_group_reclaimable">Освободит: %1$s</string>
+    <string name="photos_tag_original">Оригинал</string>
+
+    <!-- Дубликаты аудио -->
+    <string name="audio_screen_title">Дубликаты музыки</string>
+    <string name="audio_scanning_progress">Поиск одинаковых песен...</string>
+    <string name="audio_empty_title">Одинаковых песен нет!</string>
+    <string name="audio_empty_desc">Ваша медиатека в полном порядке</string>
+    <string name="audio_selected_count">Выбрано: %1$d треков</string>
+    <string name="audio_tag_original">Оригинал</string>
+
+    <!-- Очистка контактов -->
+    <string name="contacts_screen_title">Очистка контактов</string>
+    <string name="contacts_scanning_progress">Поиск дубликатов в телефонной книге...</string>
+    <string name="contacts_empty_title">Контакты чисты!</string>
+    <string name="contacts_empty_desc">Повторяющихся номеров и карточек не обнаружено</string>
+    <string name="contacts_found_duplicates_label">Найдено дубликатов</string>
+    <string name="contacts_duplicates_count">%1$d записей</string>
+    <string name="contacts_tag_primary">Основной</string>
+    <string name="contacts_delete_copy_desc">Удалить копию</string>
+    <string name="contacts_no_name">Без имени</string>
+    <string name="contacts_match_reason_phone">Одинаковый номер: %1$s</string>
+    <string name="contacts_match_reason_name">Совпадающее имя: %1$s</string>
+
+    <!-- Мусор и битые файлы -->
+    <string name="junk_screen_title">Мусор и битые файлы</string>
+    <string name="junk_scanning_progress">Поиск битых файлов и остаточного мусора...</string>
+    <string name="junk_empty_title">Система чиста!</string>
+    <string name="junk_empty_desc">Мусорных и пустых файлов не обнаружено</string>
+    <string name="junk_total_found">Найдено мусора: %1$s</string>
+    <string name="junk_will_free_label">Будет освобождено</string>
+    <string name="junk_cleaned_toast">Удалено %1$d объектов (%2$s)!</string>
+    <string name="junk_category_files_count">%1$d файлов • %2$s</string>
+
+    <!-- Категории мусора -->
+    <string name="junk_cat_zero_byte_title">Битые и пустые файлы</string>
+    <string name="junk_cat_zero_byte_desc">Файлы размером 0 байт, поврежденные загрузки</string>
+    <string name="junk_cat_empty_folders_title">Пустые папки</string>
+    <string name="junk_cat_empty_folders_desc">Остатки удаленных приложений и кэша</string>
+    <string name="junk_cat_old_apks_title">Установочные APK</string>
+    <string name="junk_cat_old_apks_desc">Забытые установочные пакеты в загрузках</string>
+    <string name="junk_cat_temp_files_title">Временные файлы</string>
+    <string name="junk_cat_temp_files_desc">Логи, .tmp, .bak и временные дампы</string>
+    <string name="junk_cat_app_cache_title">Кэш миниатюр и системы</string>
+    <string name="junk_cat_app_cache_desc">Устаревшие эскизы и системные буферы</string>
+
+    <!-- Экран оплаты (Paywall) -->
+    <string name="paywall_screen_title">NovaClean PRO</string>
+    <string name="paywall_screen_subtitle">Максимум свободной памяти и скорости вашего Android-устройства</string>
+    <string name="paywall_benefit_unlimited_clean">Безлимитная очистка всех дубликатов в 1 клик</string>
+    <string name="paywall_benefit_ai_similar_photos">ИИ-поиск похожих и смазанных кадров</string>
+    <string name="paywall_benefit_merge_contacts">Умное объединение дубликатов контактов</string>
+    <string name="paywall_benefit_deep_ram">Глубокая оптимизация памяти (ОЗУ)</string>
+    <string name="paywall_benefit_no_ads">100% без рекламы и фонового расхода</string>
+
+    <!-- Тарифные планы -->
+    <string name="plan_yearly_title">1 Год + 3 дня бесплатно</string>
+    <string name="plan_yearly_subtitle">124 ₽ в месяц (скидка 50%)</string>
+    <string name="plan_yearly_price">1 490 ₽</string>
+    <string name="plan_yearly_period">/ год</string>
+    <string name="plan_yearly_badge">ХИТ ПРОДАЖ</string>
+
+    <string name="plan_monthly_title">1 Месяц</string>
+    <string name="plan_monthly_subtitle">Оплата каждый месяц</string>
+    <string name="plan_monthly_price">299 ₽</string>
+    <string name="plan_monthly_period">/ месяц</string>
+
+    <string name="plan_lifetime_title">Навсегда (Lifetime)</string>
+    <string name="plan_lifetime_subtitle">Один платеж без подписок</string>
+    <string name="plan_lifetime_price">2 490 ₽</string>
+    <string name="plan_lifetime_period">разово</string>
+    <string name="plan_lifetime_badge">ВЫГОДНО</string>
+
+    <string name="paywall_cta_trial">Попробовать %1$d дня бесплатно</string>
+    <string name="paywall_cta_lifetime">Купить навсегда (%1$s)</string>
+    <string name="paywall_cta_subscribe">Оформить подписку</string>
+    <string name="paywall_restore_action">Восстановить покупки</string>
+    <string name="paywall_terms_privacy">Условия и конфиденциальность</string>
+    <string name="paywall_activated_toast">NovaClean PRO успешно активирован!</string>
+    <string name="paywall_restored_success">Покупки успешно восстановлены!</string>
+    <string name="paywall_restored_empty">Активных покупок не найдено</string>
+    <string name="paywall_error_prefix">Ошибка: %1$s</string>
+
+    <!-- Личный кабинет (Profile) -->
+    <string name="action_profile">Профиль</string>
+    <string name="profile_screen_title">Личный кабинет</string>
+    <string name="profile_user_default_name">Пользователь NovaClean</string>
+    <string name="profile_user_id_label">ID: %1$s</string>
+    <string name="profile_subscription_status_title">Статус аккаунта</string>
+    <string name="profile_status_pro">Тариф: NovaClean PRO</string>
+    <string name="profile_status_free">Тариф: Базовый (Free)</string>
+    <string name="profile_manage_subscription">Управление подпиской</string>
+    <string name="profile_upgrade_to_pro">Разблокировать PRO</string>
+    <string name="profile_stats_title">Статистика устройства</string>
+    <string name="profile_total_cleaned_label">Сэкономлено памяти</string>
+    <string name="profile_total_cleaned_default">4.6 ГБ</string>
+    <string name="profile_security_section">Безопасность и защита</string>
+    <string name="profile_password_generator_title">Генератор паролей</string>
+    <string name="profile_password_generator_desc">Криптостойкие пароли с оценкой надежности</string>
+    <string name="profile_settings_section">Настройки и приложение</string>
+    <string name="profile_notifications_title">Умные уведомления</string>
+    <string name="profile_notifications_desc">Напоминать об очистке при заполнении 80%</string>
+    <string name="profile_rate_app">Оценить в Google Play</string>
+    <string name="profile_privacy_policy">Политика конфиденциальности</string>
+    <string name="profile_terms">Условия обслуживания</string>
+
+    <!-- Генератор паролей (в стиле Касперского) -->
+    <string name="password_gen_screen_title">Генератор паролей</string>
+    <string name="password_gen_tagline">Создание невзламываемых паролей с анализом стойкости</string>
+    <string name="password_gen_copy_action">Скопировать пароль</string>
+    <string name="password_gen_copied_toast">Пароль скопирован в буфер обмена!</string>
+    <string name="password_gen_regenerate">Сгенерировать новый</string>
+    <string name="password_gen_strength_title">Оценка безопасности</string>
+    <string name="password_gen_strength_weak">Слабый пароль</string>
+    <string name="password_gen_strength_medium">Средняя стойкость</string>
+    <string name="password_gen_strength_strong">Надежный пароль</string>
+    <string name="password_gen_strength_excellent">Максимальная защита (Касперский)</string>
+    <string name="password_gen_time_instant">Взламывается мгновенно</string>
+    <string name="password_gen_time_minutes">Подбор займет несколько минут</string>
+    <string name="password_gen_time_days">Подбор займет несколько месяцев</string>
+    <string name="password_gen_time_years">Потребуется более %1$d лет</string>
+    <string name="password_gen_time_centuries">Для подбора потребуются тысячелетия</string>
+    <string name="password_gen_entropy_bits">%1$d бит энтропии</string>
+    <string name="password_gen_settings_title">Параметры генерации</string>
+    <string name="password_gen_length_label">Длина пароля: %1$d символов</string>
+    <string name="password_gen_opt_uppercase">Заглавные буквы (A–Z)</string>
+    <string name="password_gen_opt_lowercase">Строчные буквы (a–z)</string>
+    <string name="password_gen_opt_digits">Цифры (0–9)</string>
+    <string name="password_gen_opt_symbols">Специальные символы (!@#$%)</string>
+    <string name="password_gen_opt_exclude_similar">Исключить похожие (0/O, 1/l, I)</string>
+</resources>
