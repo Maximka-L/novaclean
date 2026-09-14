@@ -14,13 +14,13 @@
     <string name="action_delete_selected">Удалить выбранные (%1$s)</string>
     <string name="action_clean_junk">Очистить мусор (%1$s)</string>
     <string name="action_merge_all_duplicates">Объединить все дубликаты</string>
-    <string name="action_accelerate_ram">Ускорить память (ОЗУ)</string>
+    <string name="action_accelerate_ram">Очистить кэш и оптимизировать ОЗУ</string>
     <string name="action_optimizing">Оптимизация...</string>
 
     <!-- Главный экран (Dashboard) -->
     <string name="dashboard_ram_title">ОЗУ Занято</string>
     <string name="dashboard_ram_subtitle">%1$s из %2$s</string>
-    <string name="dashboard_ram_freed_toast">Освобождено памяти: %1$s! Телефон ускорен.</string>
+    <string name="dashboard_ram_freed_toast">Освобождено памяти: %1$s! Системный кэш очищен.</string>
     <string name="dashboard_pro_banner_title">NovaClean PRO</string>
     <string name="dashboard_pro_banner_desc">Глубокая очистка без ограничений и 100% без рекламы</string>
     <string name="dashboard_modules_title">Модули очистки</string>
@@ -97,7 +97,7 @@
     <string name="paywall_benefit_unlimited_clean">Безлимитная очистка всех дубликатов в 1 клик</string>
     <string name="paywall_benefit_ai_similar_photos">ИИ-поиск похожих и смазанных кадров</string>
     <string name="paywall_benefit_merge_contacts">Умное объединение дубликатов контактов</string>
-    <string name="paywall_benefit_deep_ram">Глубокая оптимизация памяти (ОЗУ)</string>
+    <string name="paywall_benefit_deep_ram">Оптимизация системного кэша и ОЗУ</string>
     <string name="paywall_benefit_no_ads">100% без рекламы и фонового расхода</string>
 
     <!-- Тарифные планы -->
@@ -175,4 +175,91 @@
     <string name="password_gen_opt_digits">Цифры (0–9)</string>
     <string name="password_gen_opt_symbols">Специальные символы (!@#$%)</string>
     <string name="password_gen_opt_exclude_similar">Исключить похожие (0/O, 1/l, I)</string>
+
+    <!-- Сжатие медиа (Media Compressor) -->
+    <string name="category_compressor_title">Сжатие фото и медиа</string>
+    <string name="category_compressor_desc">Уменьшение размера фото до 80% без потери качества</string>
+    <string name="compressor_screen_title">Сжатие фото</string>
+    <string name="compressor_select_photo">Выбрать фото из галереи</string>
+    <string name="compressor_selected_image">Выбранный снимок</string>
+    <string name="compressor_original_size">Исходный размер: %1$s</string>
+    <string name="compressor_estimated_size">После сжатия: ~%1$s (экономия %2$d%%)</string>
+    <string name="compressor_quality_title">Степень сжатия</string>
+    <string name="compressor_preset_high_title">Максимальное сжатие (50%)</string>
+    <string name="compressor_preset_high_desc">Экономия до 75% места, идеально для архива</string>
+    <string name="compressor_preset_balanced_title">Сбалансированное (70%)</string>
+    <string name="compressor_preset_balanced_desc">Оптимальный баланс качества и объема (рекомендуется)</string>
+    <string name="compressor_preset_low_title">Легкое сжатие (85%)</string>
+    <string name="compressor_preset_low_desc">Максимальная детализация с легкой оптимизацией</string>
+    <string name="compressor_action_compress">Сжать фото (Освободить ~%1$s)</string>
+    <string name="compressor_progress">Сжатие и оптимизация изображения...</string>
+    <string name="compressor_success_title">Фото успешно сжато!</string>
+    <string name="compressor_success_desc">Освобождено %1$s памяти. Сжатая копия сохранена в галерею.</string>
+    <string name="compressor_freemium_limit_reached">Лимит бесплатных сжатий исчерпан. Оформите PRO для неограниченной пакетной оптимизации.</string>
+    <string name="compressor_pick_another">Выбрать другое фото</string>
+    <string name="compressor_btn_pick">Выбрать снимок</string>
+
+    <!-- Поиск больших файлов (Large Files Finder) -->
+    <string name="category_large_files_title">Поиск больших файлов</string>
+    <string name="category_large_files_desc">Поиск видео, архивов и документов более 50 МБ</string>
+    <string name="large_files_screen_title">Большие файлы</string>
+    <string name="large_files_scanning">Поиск тяжелых файлов...</string>
+    <string name="large_files_empty_title">Тяжелых файлов не найдено!</string>
+    <string name="large_files_empty_desc">Файлов выбранного размера в памяти нет</string>
+    <string name="large_files_tab_50mb">> 50 МБ</string>
+    <string name="large_files_tab_100mb">> 100 МБ</string>
+    <string name="large_files_tab_500mb">> 500 МБ</string>
+    <string name="large_files_tab_1gb">> 1 ГБ</string>
+    <string name="large_files_filter_all">Все</string>
+    <string name="large_files_filter_video">Видео</string>
+    <string name="large_files_filter_audio">Аудио</string>
+    <string name="large_files_filter_docs">Документы</string>
+    <string name="large_files_filter_archives">Архивы</string>
+    <string name="large_files_selected_count">Выбрано: %1$d (%2$s)</string>
+    <string name="large_files_delete_action">Удалить выбранные (%1$s)</string>
+    <string name="large_files_deleted_toast">Удалено %1$d файлов (%2$s)!</string>
+    <string name="large_files_total_found">Найдено: %1$d файлов (%2$s)</string>
+
+    <!-- Виджет рабочего стола (App Widget) -->
+    <string name="widget_title">NovaClean</string>
+    <string name="widget_ram_label">ОЗУ</string>
+    <string name="widget_storage_label">Память</string>
+    <string name="widget_btn_clean">Очистить</string>
+    <string name="widget_cleaned_toast">NovaClean: Кэш и ОЗУ очищены!</string>
+
+    <!-- Секретный Сейф (Private Vault) -->
+    <string name="category_vault_title">Секретный Сейф</string>
+    <string name="category_vault_desc">Защищенное хранилище фото и заметок под PIN-кодом</string>
+    <string name="vault_screen_title">Секретный Сейф</string>
+    <string name="vault_enter_pin">Введите 4-значный PIN-код</string>
+    <string name="vault_setup_pin">Придумайте PIN-код для сейфа</string>
+    <string name="vault_confirm_pin">Повторите PIN-код</string>
+    <string name="vault_pin_mismatch">PIN-коды не совпадают. Попробуйте снова.</string>
+    <string name="vault_wrong_pin">Неверный PIN-код! Попробуйте снова.</string>
+    <string name="vault_empty_title">Сейф пуст</string>
+    <string name="vault_empty_desc">Спрячьте сюда личные снимки и заметки, скрыв их от посторонних глаз</string>
+    <string name="vault_add_photo">Добавить фото</string>
+    <string name="vault_add_note">Создать заметку</string>
+    <string name="vault_item_deleted">Файл навсегда удален из сейфа</string>
+    <string name="vault_item_restored">Файл успешно восстановлен</string>
+    <string name="vault_pro_badge">PRO СЕЙФ</string>
+    <string name="vault_pro_gate_title">Секретный сейф доступен в NovaClean PRO</string>
+    <string name="vault_pro_gate_desc">Шифрованное хранилище, защита от несанкционированного доступа и скрытие файлов из стандартной галереи.</string>
+    <string name="vault_action_unlock">Разблокировать сейф в PRO</string>
+    <string name="vault_dialog_note_title">Новая секретная заметка</string>
+    <string name="vault_dialog_note_hint">Введите текст заметки...</string>
+    <string name="vault_dialog_save">Сохранить в сейф</string>
+    <string name="vault_dialog_cancel">Отмена</string>
+    <string name="vault_tab_photos">Фотографии</string>
+    <string name="vault_tab_notes">Заметки</string>
+    <string name="vault_delete_item">Удалить</string>
+    <string name="vault_restore_item">Восстановить</string>
+
+    <!-- Умные фоновые уведомления (WorkManager) -->
+    <string name="notif_channel_name">Напоминания об очистке</string>
+    <string name="notif_channel_desc">Периодический мониторинг свободного места и кэша</string>
+    <string name="notif_storage_low_title">Память устройства почти заполнена!</string>
+    <string name="notif_storage_low_desc">Свободно менее 15% места. Нажмите, чтобы очистить кэш и дубликаты.</string>
+    <string name="notif_periodic_title">Время навести порядок в NovaClean</string>
+    <string name="notif_periodic_desc">В памяти обнаружены временные файлы. Очистите мусор в 1 клик.</string>
 </resources>

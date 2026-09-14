@@ -21,8 +21,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Audiotrack
 import androidx.compose.material.icons.filled.Bolt
+import androidx.compose.material.icons.filled.Compress
 import androidx.compose.material.icons.filled.Contacts
 import androidx.compose.material.icons.filled.DeleteSweep
+import androidx.compose.material.icons.filled.FolderZip
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PhotoLibrary
 import androidx.compose.material.icons.filled.Star
@@ -69,6 +72,9 @@ fun DashboardScreen(
     onNavigateToAudio: () -> Unit,
     onNavigateToContacts: () -> Unit,
     onNavigateToJunk: () -> Unit,
+    onNavigateToCompressor: () -> Unit,
+    onNavigateToLargeFiles: () -> Unit,
+    onNavigateToVault: () -> Unit,
     onNavigateToPaywall: () -> Unit,
     onNavigateToProfile: () -> Unit
 ) {
@@ -319,6 +325,36 @@ fun DashboardScreen(
                 icon = Icons.Default.DeleteSweep,
                 iconColor = OrangeFlame,
                 onClick = onNavigateToJunk
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            CategoryCard(
+                title = stringResource(R.string.category_compressor_title),
+                subtitle = stringResource(R.string.category_compressor_desc),
+                icon = Icons.Default.Compress,
+                iconColor = NeonCyan,
+                onClick = onNavigateToCompressor
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            CategoryCard(
+                title = stringResource(R.string.category_large_files_title),
+                subtitle = stringResource(R.string.category_large_files_desc),
+                icon = Icons.Default.FolderZip,
+                iconColor = ElectricBlue,
+                onClick = onNavigateToLargeFiles
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            CategoryCard(
+                title = stringResource(R.string.category_vault_title),
+                subtitle = stringResource(R.string.category_vault_desc),
+                icon = Icons.Default.Lock,
+                iconColor = com.novaclean.app.presentation.theme.NeonPurple,
+                onClick = onNavigateToVault
             )
 
             Spacer(modifier = Modifier.height(30.dp))

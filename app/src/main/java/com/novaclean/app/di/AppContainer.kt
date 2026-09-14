@@ -86,4 +86,20 @@ class AppContainer(context: Context) {
     val addCleanedBytesUseCase = com.novaclean.app.domain.usecase.AddCleanedBytesUseCase(profileRepository)
 
     val passwordGeneratorUseCase = com.novaclean.app.domain.usecase.PasswordGeneratorUseCase()
+
+    // Media Compressor
+    val compressorRepository: com.novaclean.app.domain.repository.CompressorRepository =
+        com.novaclean.app.data.repository.CompressorRepositoryImpl(context)
+    val compressMediaUseCase = com.novaclean.app.domain.usecase.CompressMediaUseCase(compressorRepository, billingRepository)
+
+    // Large Files Finder
+    val largeFilesRepository: com.novaclean.app.domain.repository.LargeFilesRepository =
+        com.novaclean.app.data.repository.LargeFilesRepositoryImpl(context)
+    val scanLargeFilesUseCase = com.novaclean.app.domain.usecase.ScanLargeFilesUseCase(largeFilesRepository)
+    val deleteLargeFilesUseCase = com.novaclean.app.domain.usecase.DeleteLargeFilesUseCase(largeFilesRepository)
+
+    // Private Vault
+    val vaultRepository: com.novaclean.app.domain.repository.VaultRepository =
+        com.novaclean.app.data.repository.VaultRepositoryImpl(context)
+    val vaultUseCases = com.novaclean.app.domain.usecase.VaultUseCases(vaultRepository)
 }

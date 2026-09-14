@@ -9,6 +9,7 @@ val MintGreen = Color(0xFF00E676)
 val OrangeFlame = Color(0xFFFF6D00)
 val WarningYellow = Color(0xFFFFD600)
 val DangerRed = Color(0xFFFF5252)
+val NeonPurple = Color(0xFFB388FF)
 
 val DarkBackground = Color(0xFF0B0E14)
 val DarkSurface = Color(0xFF161B26)

@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class ProfileRepositoryImpl(
-    context: Context,
+    private val context: Context,
     private val billingRepository: BillingRepository,
     private val scope: CoroutineScope
 ) : ProfileRepository {
@@ -27,6 +27,9 @@ class ProfileRepositoryImpl(
             billingRepository.isProUser.collectLatest { isPro ->
                 _userProfile.value = _userProfile.value.copy(isPro = isPro)
             }
+        }
+        if (_userProfile.value.notificationsEnabled) {
+            com.novaclean.app.worker.StorageMonitorWorker.schedule(context)
         }
     }
 
@@ -50,6 +53,11 @@ class ProfileRepositoryImpl(
     override fun setNotificationsEnabled(enabled: Boolean) {
         prefs.edit().putBoolean("notifications_enabled", enabled).apply()
         _userProfile.value = _userProfile.value.copy(notificationsEnabled = enabled)
+        if (enabled) {
+            com.novaclean.app.worker.StorageMonitorWorker.schedule(context)
+        } else {
+            com.novaclean.app.worker.StorageMonitorWorker.cancel(context)
+        }
     }
 
     override fun addCleanedBytes(bytes: Long) {

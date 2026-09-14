@@ -28,6 +28,9 @@ object Routes {
     const val PAYWALL = "paywall"
     const val PROFILE = "profile"
     const val PASSWORD_GEN = "password_gen"
+    const val COMPRESSOR = "compressor"
+    const val LARGE_FILES = "large_files"
+    const val VAULT = "vault"
 }
 
 @Composable
@@ -53,6 +56,9 @@ fun NovaCleanNavGraph(
                 onNavigateToAudio = { navController.navigate(Routes.AUDIO) },
                 onNavigateToContacts = { navController.navigate(Routes.CONTACTS) },
                 onNavigateToJunk = { navController.navigate(Routes.JUNK) },
+                onNavigateToCompressor = { navController.navigate(Routes.COMPRESSOR) },
+                onNavigateToLargeFiles = { navController.navigate(Routes.LARGE_FILES) },
+                onNavigateToVault = { navController.navigate(Routes.VAULT) },
                 onNavigateToPaywall = { navController.navigate(Routes.PAYWALL) },
                 onNavigateToProfile = { navController.navigate(Routes.PROFILE) }
             )
@@ -156,6 +162,47 @@ fun NovaCleanNavGraph(
             PaywallScreen(
                 viewModel = viewModel,
                 onClose = { navController.popBackStack() }
+            )
+        }
+
+        composable(Routes.COMPRESSOR) {
+            val viewModel = remember {
+                com.novaclean.app.presentation.viewmodel.MediaCompressorViewModel(
+                    compressMediaUseCase = container.compressMediaUseCase,
+                    observeProStatusUseCase = container.observeProStatusUseCase
+                )
+            }
+            com.novaclean.app.presentation.screens.MediaCompressorScreen(
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() },
+                onNavigatePaywall = { navController.navigate(Routes.PAYWALL) }
+            )
+        }
+
+        composable(Routes.LARGE_FILES) {
+            val viewModel = remember {
+                com.novaclean.app.presentation.viewmodel.LargeFilesViewModel(
+                    scanUseCase = container.scanLargeFilesUseCase,
+                    deleteUseCase = container.deleteLargeFilesUseCase
+                )
+            }
+            com.novaclean.app.presentation.screens.LargeFilesScreen(
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(Routes.VAULT) {
+            val viewModel = remember {
+                com.novaclean.app.presentation.viewmodel.VaultViewModel(
+                    vaultUseCases = container.vaultUseCases,
+                    observeProStatusUseCase = container.observeProStatusUseCase
+                )
+            }
+            com.novaclean.app.presentation.screens.VaultScreen(
+                viewModel = viewModel,
+                onBack = { navController.popBackStack() },
+                onNavigatePaywall = { navController.navigate(Routes.PAYWALL) }
             )
         }
     }

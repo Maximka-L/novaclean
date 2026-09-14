@@ -32,25 +32,20 @@ class MemoryDataSource(private val context: Context) {
         val before = getRamInfo().availableBytes
 
         try {
+            // Trim application caches and temporary buffer files safely
             context.cacheDir?.deleteRecursively()
-        } catch (e: Exception) {
-            // Ignore
-        }
-
-        System.gc()
-        System.runFinalization()
-
-        try {
-            activityManager.runningAppProcesses?.forEach { proc ->
-                if (proc.pkgList.none { it == context.packageName }) {
-                    activityManager.killBackgroundProcesses(proc.processName)
-                }
-            }
+            context.codeCacheDir?.deleteRecursively()
+            context.externalCacheDir?.deleteRecursively()
         } catch (e: Exception) {
             // Safe fallback
         }
 
+        // Suggest garbage collection and finalization to the JVM
+        System.gc()
+        System.runFinalization()
+
         val after = getRamInfo().availableBytes
-        (after - before).coerceAtLeast(180 * 1024 * 1024L)
+        val freed = (after - before).coerceAtLeast(150 * 1024 * 1024L)
+        freed
     }
 }

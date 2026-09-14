@@ -96,10 +96,14 @@ fun GradientButton(
 }
 
 @Composable
-fun ProBadge(modifier: Modifier = Modifier) {
+fun ProBadge(
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null
+) {
+    val clickableModifier = if (onClick != null) modifier.clickable(onClick = onClick) else modifier
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        modifier = clickableModifier
             .clip(RoundedCornerShape(6.dp))
             .background(Brush.horizontalGradient(listOf(ProGoldStart, ProGoldEnd)))
             .padding(horizontal = 6.dp, vertical = 2.dp)
