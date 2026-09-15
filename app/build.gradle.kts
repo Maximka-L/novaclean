@@ -94,8 +94,8 @@ dependencies {
     // WorkManager for background storage checks
     implementation("androidx.work:work-runtime-ktx:2.10.0")
 
-    // Yandex Mobile Ads SDK
-    implementation("com.yandex.android:mobileads:7.18.7")
+    // Yandex Mobile Ads SDK (Latest 8.x)
+    implementation("com.yandex.android:mobileads:8.4.0")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")

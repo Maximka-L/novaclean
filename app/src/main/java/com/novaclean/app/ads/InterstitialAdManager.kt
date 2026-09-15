@@ -3,7 +3,7 @@ package com.novaclean.app.ads
 import android.app.Activity
 import android.content.Context
 import com.yandex.mobile.ads.common.AdError
-import com.yandex.mobile.ads.common.AdRequestConfiguration
+import com.yandex.mobile.ads.common.AdRequest
 import com.yandex.mobile.ads.common.AdRequestError
 import com.yandex.mobile.ads.common.ImpressionData
 import com.yandex.mobile.ads.interstitial.InterstitialAd
@@ -29,7 +29,9 @@ class InterstitialAdManager(
         isLoading = true
 
         val loader = InterstitialAdLoader(context)
-        loader.setAdLoadListener(object : InterstitialAdLoadListener {
+        adLoader = loader
+        val adRequest = AdRequest.Builder(adUnitId).build()
+        loader.loadAd(adRequest, object : InterstitialAdLoadListener {
             override fun onAdLoaded(ad: InterstitialAd) {
                 interstitialAd = ad
                 isLoading = false
@@ -40,9 +42,6 @@ class InterstitialAdManager(
                 isLoading = false
             }
         })
-        adLoader = loader
-        val config = AdRequestConfiguration.Builder(adUnitId).build()
-        loader.loadAd(config)
     }
 
     fun showAdIfAvailable(

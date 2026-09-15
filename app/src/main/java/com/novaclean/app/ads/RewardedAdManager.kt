@@ -3,7 +3,7 @@ package com.novaclean.app.ads
 import android.app.Activity
 import android.content.Context
 import com.yandex.mobile.ads.common.AdError
-import com.yandex.mobile.ads.common.AdRequestConfiguration
+import com.yandex.mobile.ads.common.AdRequest
 import com.yandex.mobile.ads.common.AdRequestError
 import com.yandex.mobile.ads.common.ImpressionData
 import com.yandex.mobile.ads.rewarded.Reward
@@ -29,7 +29,9 @@ class RewardedAdManager(
         isLoading = true
 
         val loader = RewardedAdLoader(context)
-        loader.setAdLoadListener(object : RewardedAdLoadListener {
+        adLoader = loader
+        val adRequest = AdRequest.Builder(adUnitId).build()
+        loader.loadAd(adRequest, object : RewardedAdLoadListener {
             override fun onAdLoaded(ad: RewardedAd) {
                 rewardedAd = ad
                 isLoading = false
@@ -40,9 +42,6 @@ class RewardedAdManager(
                 isLoading = false
             }
         })
-        adLoader = loader
-        val config = AdRequestConfiguration.Builder(adUnitId).build()
-        loader.loadAd(config)
     }
 
     val isAdLoaded: Boolean

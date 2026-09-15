@@ -45,9 +45,8 @@ fun YandexBannerAd(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT
                     )
-                    setAdUnitId(adUnitId)
                     val widthDp = context.resources.configuration.screenWidthDp
-                    setAdSize(BannerAdSize.stickySize(context, widthDp))
+                    setAdSize(BannerAdSize.sticky(context, widthDp))
                     setBannerAdEventListener(object : BannerAdEventListener {
                         override fun onAdLoaded() {
                             isAdLoaded = true
@@ -58,11 +57,9 @@ fun YandexBannerAd(
                         }
 
                         override fun onAdClicked() {}
-                        override fun onLeftApplication() {}
-                        override fun onReturnedToApplication() {}
                         override fun onImpression(impressionData: ImpressionData?) {}
                     })
-                    loadAd(AdRequest.Builder().build())
+                    loadAd(AdRequest.Builder(adUnitId).build())
                 }
             }
         )
