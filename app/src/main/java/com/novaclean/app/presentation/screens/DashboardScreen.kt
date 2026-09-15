@@ -76,7 +76,8 @@ fun DashboardScreen(
     onNavigateToLargeFiles: () -> Unit,
     onNavigateToVault: () -> Unit,
     onNavigateToPaywall: () -> Unit,
-    onNavigateToProfile: () -> Unit
+    onNavigateToProfile: () -> Unit,
+    interstitialAdManager: com.novaclean.app.ads.InterstitialAdManager? = null
 ) {
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -90,6 +91,9 @@ fun DashboardScreen(
         viewModel.freedBytesEvent.collectLatest { freed ->
             val msg = context.getString(R.string.dashboard_ram_freed_toast, formatFileSize(freed))
             snackbarHostState.showSnackbar(msg)
+            (context as? android.app.Activity)?.let { act ->
+                interstitialAdManager?.showAdIfAvailable(act, isPro)
+            }
         }
     }
 
@@ -355,6 +359,13 @@ fun DashboardScreen(
                 icon = Icons.Default.Lock,
                 iconColor = com.novaclean.app.presentation.theme.NeonPurple,
                 onClick = onNavigateToVault
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            com.novaclean.app.presentation.components.YandexBannerAd(
+                isProUser = isPro,
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(30.dp))

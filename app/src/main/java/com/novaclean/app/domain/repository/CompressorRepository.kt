@@ -7,5 +7,6 @@ interface CompressorRepository {
     suspend fun compressImage(uriString: String, preset: CompressionPreset): Result<CompressedResult>
     fun getRemainingFreeCompressions(): Int
     fun decrementFreeCompressions()
+    fun addBonusFreeCompressions(count: Int)
     fun getFileSizeBytes(uriString: String): Long
 }

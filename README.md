@@ -82,10 +82,17 @@
 - Наглядный счетчик сэкономленного пространства за все время использования.
 - Управление умными уведомлениями и ссылки на политики безопасности.
 
-### 10. 💳 Монетизация (Google Play Billing 7.x)
+### 10. 💳 Монетизация подписками (Google Play Billing 7.x)
 - Тарифные планы: *1 Год* (с 3 днями триала), *1 Месяц*, *Навсегда (Lifetime)*.
 - Поддержка официального Google Play Billing Client 7.1.1.
 - Встроенный отладочный Sandbox Fallback для тестирования покупки и восстановления без боевой консоли.
+
+### 11. 📢 Рекламная сеть Яндекса (РСЯ / Yandex Mobile Ads SDK)
+- Интегрирован **Yandex Mobile Ads SDK 7.18.7** с официальными блоками приложения NovaClean (App ID: `20048089`):
+  - 📌 **Нижний адаптивный баннер**: `R-M-20048089-1` (главный экран Dashboard, экраны очистки).
+  - 📱 **Полноэкранная реклама (Interstitial)**: `R-M-20048089-2` (показ после завершения очистки ОЗУ и мусора с UX-защитой: тайм-аут кулдауна 45 секунд между показами).
+  - 🎁 **Реклама с вознаграждением (Rewarded Video)**: `R-M-20048089-3` (просмотр ролика дает +1 бонусное сжатие фото в Media Compressor при исчерпании лимита).
+- **Ad-Free статус**: для всех PRO-пользователей (`isProUser == true`) любая реклама автоматически и полностью отключается.
 
 ---
 
@@ -163,10 +170,14 @@ export JAVA_HOME="/opt/homebrew/opt/openjdk@17"
 
 # Сборка Debug APK
 ./gradlew assembleDebug
+
+# Сборка подписанного Release APK для RuStore
+./gradlew assembleRelease
 ```
 
-Собранный APK-файл будет находиться по пути:
-`app/build/outputs/apk/debug/app-debug.apk`
+Собранные файлы:
+- **Debug APK**: `app/build/outputs/apk/debug/app-debug.apk`
+- **Release APK для RuStore**: `app/build/outputs/apk/release/app-release.apk` (подписан цифровым ключом `app/novaclean-release.jks`, готов к загрузке в консоль RuStore)
 
 ---
 

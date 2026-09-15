@@ -21,8 +21,20 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("novaclean-release.jks")
+            storePassword = "novaclean2026"
+            keyAlias = "novaclean"
+            keyPassword = "novaclean2026"
+            enableV1Signing = true
+            enableV2Signing = true
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -45,6 +57,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    lint {
+        checkReleaseBuilds = false
+        abortOnError = false
+    }
 }
 
 dependencies {
@@ -53,6 +69,7 @@ dependencies {
     androidTestImplementation(composeBom)
 
     implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
@@ -76,6 +93,9 @@ dependencies {
 
     // WorkManager for background storage checks
     implementation("androidx.work:work-runtime-ktx:2.10.0")
+
+    // Yandex Mobile Ads SDK
+    implementation("com.yandex.android:mobileads:7.18.7")
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")

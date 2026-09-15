@@ -27,6 +27,11 @@ class CompressorRepositoryImpl(private val context: Context) : CompressorReposit
         }
     }
 
+    override fun addBonusFreeCompressions(count: Int) {
+        val current = getRemainingFreeCompressions()
+        prefs.edit().putInt(KEY_FREE_COMPRESSIONS, current + count).apply()
+    }
+
     override fun getFileSizeBytes(uriString: String): Long {
         return try {
             val uri = Uri.parse(uriString)

@@ -16,6 +16,8 @@ class CompressMediaUseCase(
 
     fun getRemainingFree(): Int = compressorRepository.getRemainingFreeCompressions()
 
+    fun addBonusFree(count: Int = 1) = compressorRepository.addBonusFreeCompressions(count)
+
     fun getFileSize(uriString: String): Long = compressorRepository.getFileSizeBytes(uriString)
 
     suspend fun execute(uriString: String, preset: CompressionPreset): Result<CompressedResult> {

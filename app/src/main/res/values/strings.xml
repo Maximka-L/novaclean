@@ -297,4 +297,9 @@
     <string name="passwords_saved_toast">Пароль надежно сохранен в сейф!</string>
     <string name="passwords_deleted_toast">Запись удалена</string>
     <string name="passwords_copied_toast">Скопировано: %1$s</string>
+
+    <!-- Реклама (Yandex Mobile Ads) -->
+    <string name="ad_watch_for_compression">Смотреть видео (+1 сжатие)</string>
+    <string name="ad_reward_granted_toast">Вам начислено +1 бесплатное сжатие!</string>
+    <string name="ad_reward_banner_text">Нужно еще сжатий? Посмотрите короткое видео (+1 попытка)</string>
 </resources>

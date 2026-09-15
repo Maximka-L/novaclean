@@ -62,6 +62,12 @@ class MediaCompressorViewModel(
         _uiState.update { it.copy(showLimitDialog = false) }
     }
 
+    fun onRewardedAdWatched() {
+        compressMediaUseCase.addBonusFree(1)
+        refreshStatus()
+        _uiState.update { it.copy(showLimitDialog = false) }
+    }
+
     fun compressSelectedImage() {
         val uri = _uiState.value.selectedUri ?: return
         viewModelScope.launch {

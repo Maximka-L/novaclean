@@ -110,4 +110,10 @@ class AppContainer(context: Context) {
     val getSavedPasswordsUseCase = com.novaclean.app.domain.usecase.GetSavedPasswordsUseCase(passwordManagerRepository)
     val savePasswordUseCase = com.novaclean.app.domain.usecase.SavePasswordUseCase(passwordManagerRepository)
     val deletePasswordUseCase = com.novaclean.app.domain.usecase.DeletePasswordUseCase(passwordManagerRepository)
+
+    // Yandex Ads
+    val interstitialAdManager: com.novaclean.app.ads.InterstitialAdManager =
+        com.novaclean.app.ads.InterstitialAdManager(context)
+    val rewardedAdManager: com.novaclean.app.ads.RewardedAdManager =
+        com.novaclean.app.ads.RewardedAdManager(context)
 }

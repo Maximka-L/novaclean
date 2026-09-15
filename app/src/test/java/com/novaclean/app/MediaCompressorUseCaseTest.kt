@@ -39,6 +39,10 @@ class MediaCompressorUseCaseTest {
             if (freeCount > 0) freeCount--
         }
 
+        override fun addBonusFreeCompressions(count: Int) {
+            freeCount += count
+        }
+
         override fun getFileSizeBytes(uriString: String): Long = 10_000_000L
     }
 
@@ -92,5 +96,24 @@ class MediaCompressorUseCaseTest {
 
         assertTrue(high.estimatedSavingsPercent > balanced.estimatedSavingsPercent)
         assertTrue(balanced.estimatedSavingsPercent > low.estimatedSavingsPercent)
+    }
+
+    @Test
+    fun testRewardedAdBonusCompressions() = runBlocking {
+        val compressorRepo = FakeCompressorRepository(freeCount = 0)
+        val billingRepo = FakeBillingRepository(isPro = false)
+        val useCase = CompressMediaUseCase(compressorRepo, billingRepo)
+
+        assertFalse(useCase.canCompress())
+        assertEquals(0, useCase.getRemainingFree())
+
+        // User watched rewarded ad -> +1 compression granted
+        useCase.addBonusFree(1)
+        assertTrue(useCase.canCompress())
+        assertEquals(1, useCase.getRemainingFree())
+
+        val res = useCase.execute("bonus_uri", CompressionPreset.BALANCED)
+        assertTrue(res.isSuccess)
+        assertEquals(0, useCase.getRemainingFree())
     }
 }

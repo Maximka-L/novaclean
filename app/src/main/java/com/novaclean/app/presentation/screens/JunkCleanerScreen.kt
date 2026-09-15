@@ -68,7 +68,9 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun JunkCleanerScreen(
     viewModel: JunkCleanerViewModel,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    isProUser: Boolean = false,
+    interstitialAdManager: com.novaclean.app.ads.InterstitialAdManager? = null
 ) {
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
@@ -82,6 +84,9 @@ fun JunkCleanerScreen(
             snackbarHostState.showSnackbar(
                 context.getString(R.string.junk_cleaned_toast, count, formatFileSize(freed))
             )
+            (context as? android.app.Activity)?.let { act ->
+                interstitialAdManager?.showAdIfAvailable(act, isProUser)
+            }
         }
     }
 
@@ -143,6 +148,10 @@ fun JunkCleanerScreen(
                             gradient = listOf(OrangeFlame, Color(0xFFFF1744)),
                             onClick = { viewModel.cleanJunk() }
                         )
+                        if (!isProUser) {
+                            Spacer(modifier = Modifier.height(8.dp))
+                            com.novaclean.app.presentation.components.YandexBannerAd(isProUser = isProUser)
+                        }
                     }
                 }
             }

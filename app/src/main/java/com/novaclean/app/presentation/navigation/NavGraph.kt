@@ -63,7 +63,8 @@ fun NovaCleanNavGraph(
                 onNavigateToLargeFiles = { navController.navigate(Routes.LARGE_FILES) },
                 onNavigateToVault = { navController.navigate(Routes.VAULT) },
                 onNavigateToPaywall = { navController.navigate(Routes.PAYWALL) },
-                onNavigateToProfile = { navController.navigate(Routes.PROFILE) }
+                onNavigateToProfile = { navController.navigate(Routes.PROFILE) },
+                interstitialAdManager = container.interstitialAdManager
             )
         }
 
@@ -167,7 +168,9 @@ fun NovaCleanNavGraph(
             }
             JunkCleanerScreen(
                 viewModel = viewModel,
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
+                isProUser = container.billingRepository.isProUser.value,
+                interstitialAdManager = container.interstitialAdManager
             )
         }
 
@@ -195,7 +198,8 @@ fun NovaCleanNavGraph(
             com.novaclean.app.presentation.screens.MediaCompressorScreen(
                 viewModel = viewModel,
                 onBack = { navController.popBackStack() },
-                onNavigatePaywall = { navController.navigate(Routes.PAYWALL) }
+                onNavigatePaywall = { navController.navigate(Routes.PAYWALL) },
+                rewardedAdManager = container.rewardedAdManager
             )
         }
 

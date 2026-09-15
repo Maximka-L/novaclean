@@ -26,6 +26,7 @@ import androidx.compose.material.icons.filled.AddPhotoAlternate
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Compress
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.RadioButtonChecked
 import androidx.compose.material.icons.filled.RadioButtonUnchecked
 import androidx.compose.material3.AlertDialog
@@ -68,9 +69,12 @@ import com.novaclean.app.presentation.viewmodel.MediaCompressorViewModel
 fun MediaCompressorScreen(
     viewModel: MediaCompressorViewModel,
     onBack: () -> Unit,
-    onNavigatePaywall: () -> Unit
+    onNavigatePaywall: () -> Unit,
+    rewardedAdManager: com.novaclean.app.ads.RewardedAdManager? = null
 ) {
     val state by viewModel.uiState.collectAsState()
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val activity = context as? android.app.Activity
 
     val pickMediaLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia()
@@ -87,7 +91,47 @@ fun MediaCompressorScreen(
             onDismissRequest = { viewModel.dismissLimitDialog() },
             icon = { Icon(Icons.Default.Lock, contentDescription = null, tint = ElectricBlue) },
             title = { Text(stringResource(R.string.category_compressor_title)) },
-            text = { Text(stringResource(R.string.compressor_freemium_limit_reached)) },
+            text = {
+                Column {
+                    Text(stringResource(R.string.compressor_freemium_limit_reached))
+                    if (rewardedAdManager != null) {
+                        Spacer(modifier = Modifier.height(14.dp))
+                        Button(
+                            onClick = {
+                                activity?.let { act ->
+                                    rewardedAdManager.showAd(
+                                        activity = act,
+                                        onRewarded = {
+                                            viewModel.onRewardedAdWatched()
+                                            android.widget.Toast.makeText(
+                                                context,
+                                                context.getString(R.string.ad_reward_granted_toast),
+                                                android.widget.Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    )
+                                }
+                            },
+                            colors = androidx.compose.material3.ButtonDefaults.buttonColors(
+                                containerColor = MintGreen
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.PlayArrow,
+                                contentDescription = null,
+                                tint = androidx.compose.ui.graphics.Color.Black
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = stringResource(R.string.ad_watch_for_compression),
+                                color = androidx.compose.ui.graphics.Color.Black,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+                }
+            },
             confirmButton = {
                 Button(onClick = {
                     viewModel.dismissLimitDialog()
@@ -313,6 +357,13 @@ fun MediaCompressorScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            com.novaclean.app.presentation.components.YandexBannerAd(
+                isProUser = state.isPro,
+                modifier = Modifier.fillMaxWidth()
+            )
 
             Spacer(modifier = Modifier.height(32.dp))
         }
